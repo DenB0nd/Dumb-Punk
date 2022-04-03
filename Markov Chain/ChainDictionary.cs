@@ -1,40 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Markov_Chain
+﻿namespace Markov_Chain
 {
     public class ChainDictionary<T> where T : notnull
     {
-        private Dictionary<Window<T>, Dictionary<Window<T>, int>> _links = new();
+        public Dictionary<T, Dictionary<T, int>> Links { get; private set; } = new();
 
-        private int WindowSize { get; set; } = 1;
-
-        public ChainDictionary(IEnumerable<T> collection, int windowSize = 1)
+        public ChainDictionary(IEnumerable<T> collection)
         {
-            WindowSize = windowSize;
-            CreateLinks(collection);
+            AppendToDictionary(collection);
         }
 
-        private IEnumerable<Window<T>> CreateLinks(IEnumerable<T> collection)
+        private void AppendToDictionary(IEnumerable<T> collection)
         {
-            int collectionSize = collection.ToArray().Count();
-            int iterator = 0;
+            T[] windows = collection.ToArray();
 
-            while(iterator + WindowSize < collectionSize)
+            for(int i = 0; i < windows.Length - 1; i++)
             {
-                yield return new Window<T>(collection.Skip(iterator).Take(WindowSize));
+                if(Links.ContainsKey(windows[i]))
+                {
+                    if (Links[windows[i]].ContainsKey(windows[i + 1]))
+                    {
+                        Links[windows[i]][windows[i + 1]]++;
+                    }
+                    else
+                    {
+                        Links[windows[i]].Add(windows[i + 1], 1);
+                    }
+                }
+                else
+                {
+                    Links.Add(windows[i], new Dictionary<T, int> { { windows[i+1], 1 } });
+                }
             }
         }
 
-        private void AppendToDictionary(IEnumerable<Window<T>> collection)
-        {
-            Window<T>[] windows = collection.ToArray();
-            Window<T> item;
-
-            
-        }
     }
 }
