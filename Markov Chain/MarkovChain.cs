@@ -3,6 +3,7 @@
     public class MarkovChain<T> where T : notnull
     {
         private ChainDictionary<T> _chainDictionary = new ChainDictionary<T> (new T[] {});
+        private Random _random = new Random();
 
         public MarkovChain(IEnumerable<T> collection)
         {
@@ -11,9 +12,9 @@
 
         public IEnumerable<T> Generate(T first, int max)
         {
+            yield return first;
             if (!_chainDictionary.Links.ContainsKey(first))
-            {
-                yield return first;
+            {         
                 yield break;
             }
 
@@ -43,14 +44,13 @@
         private T? NextLink(Dictionary<T, int> links)
         {
             int sum = links.Sum(x => x.Value);
-
-            Random random = new Random();
-            int randomNumber = random.Next(1, sum + 1);
+           
+            int randomNumber = _random.Next(1, sum + 1);
             int counter = 1;
 
             foreach (KeyValuePair<T, int> entry in links)
             {
-                if(counter <= randomNumber)
+                if(counter / randomNumber == 1)
                 {
                     return entry.Key;
                 }

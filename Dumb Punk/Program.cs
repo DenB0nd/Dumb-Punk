@@ -1,20 +1,50 @@
 ﻿
 // See https://aka.ms/new-console-template for more information
 using Markov_Chain;
+using System.Diagnostics;
 
 Console.WriteLine("Hello, World!");
 
 ChainDictionary<int> cd = new ChainDictionary<int>(new int[] {});
+Stopwatch stopwatch = Stopwatch.StartNew();
 
 
-string str = "Как было сказано в самом начале, метод, использующий yield, может возвращать IEnumerable, то есть как бы саму последовательность, а не её итератор. Довольно часто более удобным вариантом может оказаться работа именно с IEnumerable, так как для этого интерфейса есть множество методов расширения, а также присутствует возможность обхода в цикле foreach.";
+string str = "";
+List<string> list = new List<string>();
+List<string> paths = Directory.EnumerateFiles(@"C:\C# и Unity\Dumb Punk\Dumb Punk\bin\Debug\net6.0", "*.txt").ToList();
+Parallel.ForEach(paths, current =>
+{
+    str = File.ReadAllText(current);
 
-MarkovChain<string> markov = new MarkovChain<string>(str.Split());
+    list.Add(str);
+});
 
-var array = markov.Generate("было", 20);
+str = "";
+
+foreach (string item in list)
+{
+    str += item;
+}
+
+stopwatch.Stop();
+Console.WriteLine(stopwatch.ElapsedMilliseconds);
+stopwatch.Restart();
+
+//str = new string(str.Where(c => !char.IsPunctuation(c) && !c.Equals(',')).ToArray()).ToLower();
+MarkovChain<string> markov = new MarkovChain<string>(str.Split(new char[]{' '}).Select(str => str.Replace(" ", "")));
+
+stopwatch.Stop();
+Console.WriteLine(stopwatch.ElapsedMilliseconds);
+stopwatch.Restart();
+
+var array = markov.Generate("Я", 100);
+
+stopwatch.Stop();
+Console.WriteLine(stopwatch.ElapsedMilliseconds);
+stopwatch.Restart();
 
 foreach (var item in array)
 {
-    Console.WriteLine(item);
+    Console.Write($"{item} ");
 }
 
