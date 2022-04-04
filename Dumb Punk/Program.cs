@@ -30,7 +30,7 @@ stopwatch.Stop();
 Console.WriteLine(stopwatch.ElapsedMilliseconds);
 stopwatch.Restart();
 
-//str = new string(str.Where(c => !char.IsPunctuation(c) && !c.Equals(',')).ToArray()).ToLower();
+str = new string(str.Where(c => !char.IsPunctuation(c) && !c.Equals(',')).ToArray());
 MarkovChain<string> markov = new MarkovChain<string>(str.Split(new char[]{' '}).Select(str => str.Replace(" ", "")));
 
 stopwatch.Stop();
