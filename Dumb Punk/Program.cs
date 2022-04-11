@@ -1,11 +1,12 @@
 ﻿
 // See https://aka.ms/new-console-template for more information
-using Markov_Chain;
+using MarkovChain;
 using System.Diagnostics;
+using TextGeneration;
 
 Console.WriteLine("Hello, World!");
 
-ChainDictionary<int> cd = new ChainDictionary<int>(new int[] {});
+Chain<int> cd = new Chain<int>(new int[] {});
 Stopwatch stopwatch = Stopwatch.StartNew();
 
 
@@ -28,23 +29,16 @@ foreach (string item in list)
 
 stopwatch.Stop();
 Console.WriteLine(stopwatch.ElapsedMilliseconds);
-stopwatch.Restart();
+stopwatch = Stopwatch.StartNew();
 
-str = new string(str.Where(c => !char.IsPunctuation(c) && !c.Equals(',')).ToArray());
-MarkovChain<string> markov = new MarkovChain<string>(str.Split(new char[]{' '}).Select(str => str.Replace(" ", "")));
+TextGenerator text = TextGenerator.CreateBuilder()
+                                  .SetLibrary(new DefaultLibrary(str))
+                                  .UsingAlgorithm(new MarkovAlgorithm())
+                                  .Build();
 
-stopwatch.Stop();
-Console.WriteLine(stopwatch.ElapsedMilliseconds);
-stopwatch.Restart();
-
-var array = markov.Generate("Я", 100);
+Console.WriteLine(text.Generate("a", 50));
 
 stopwatch.Stop();
 Console.WriteLine(stopwatch.ElapsedMilliseconds);
-stopwatch.Restart();
 
-foreach (var item in array)
-{
-    Console.Write($"{item} ");
-}
 
