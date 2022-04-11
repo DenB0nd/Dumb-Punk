@@ -4,19 +4,19 @@ using System.Text;
 
 public class MarkovAlgorithm : IGenerationAlgorithm
 {
-    public string? Generate(ILibrary library, string start = "", int lenght = 10)
+    public string? Generate(ILibrary library, string start = "", int count = 1)
     {
         ArgumentNullException.ThrowIfNull(nameof(start));
-        if (library is IChainedLibrary)
+        if (library is not IChainedLibrary)
         {
-            return this.Generate((IChainedLibrary)library, start, lenght);
+            return null;          
         }
-
-        return null;
+        return this.Generate((IChainedLibrary)library, start, count);
     }
 
     private string Generate(IChainedLibrary library, string start = "", int lenght = 10)
     {
+        ArgumentNullException.ThrowIfNull(start);
         if (!library.ChainedSource.Links.ContainsKey(start))
         {
             return start;

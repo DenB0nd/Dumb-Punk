@@ -2,7 +2,7 @@
 
 public class TextGeneratorBuilder
 {
-    private TextGenerator generator;
+    private readonly TextGenerator generator;
 
     public TextGeneratorBuilder()
     {
