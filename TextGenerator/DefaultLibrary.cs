@@ -5,18 +5,18 @@ namespace TextGeneration
     public class DefaultLibrary : IChainedLibrary, ITextLibrary
     {
         public string Source { get; set; } = "";
-        public Chain<string> ChainedSource { get; set; }
+        public MarkovChain<string> ChainedSource { get; set; }
 
         public DefaultLibrary(IEnumerable<string> chain) 
         {
-            ChainedSource = new Chain<string>(chain);
+            ChainedSource = new MarkovChain<string>(chain);
         }
 
         public DefaultLibrary(string source)
         {
             Source = source;
             string str = new string(source.Where(c => !char.IsPunctuation(c) && !c.Equals(',')).ToArray());
-            ChainedSource = new Chain<string>(str.Split(' ').Select(s => s.Trim()));
+            ChainedSource = new MarkovChain<string>(str.Split(' ').Select(s => s.Trim()));
         }
     }
 }

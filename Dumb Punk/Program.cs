@@ -6,7 +6,7 @@ using TextGeneration;
 
 Console.WriteLine("Hello, World!");
 
-Chain<int> cd = new Chain<int>(new int[] {});
+MarkovChain<int> cd = new MarkovChain<int>(new int[] {});
 Stopwatch stopwatch = Stopwatch.StartNew();
 
 
@@ -31,12 +31,24 @@ stopwatch.Stop();
 Console.WriteLine(stopwatch.ElapsedMilliseconds);
 stopwatch = Stopwatch.StartNew();
 
+string str1 = new string(str.Where(c => !char.IsPunctuation(c) && !c.Equals(',')).ToArray());
+var arr = str1.Split(' ').Select(s => s.Trim());
+
+stopwatch.Stop();
+Console.WriteLine(stopwatch.ElapsedMilliseconds);
+stopwatch = Stopwatch.StartNew();
+
+var t = new MarkovChain<string>(arr);
+
+stopwatch.Stop();
+Console.WriteLine(stopwatch.ElapsedMilliseconds);
+stopwatch = Stopwatch.StartNew();
 TextGenerator text = TextGenerator.CreateBuilder()
                                   .SetLibrary(new DefaultLibrary(str))
                                   .UsingAlgorithm(new MarkovAlgorithm())
                                   .Build();
 
-Console.WriteLine(text.Generate("a", 50));
+Console.WriteLine(text.Generate("Я", 50));
 
 stopwatch.Stop();
 Console.WriteLine(stopwatch.ElapsedMilliseconds);

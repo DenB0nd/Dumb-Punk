@@ -1,5 +1,4 @@
-﻿using MarkovChain;
-using System.Text;
+﻿using System.Text;
 namespace TextGeneration
 {
     public class MarkovAlgorithm : IGenerationAlgorithm
@@ -7,48 +6,45 @@ namespace TextGeneration
 
         public string? Generate(ILibrary library, string start = "", int lenght = 10)
         {
-            if(library is IChainedLibrary)
+            ArgumentNullException.ThrowIfNull(nameof(start));
+            if (library is IChainedLibrary)
                 return Generate((IChainedLibrary)library, start, lenght);
             return null;
         }
 
         private string Generate(IChainedLibrary library, string start = "", int lenght = 10)
         {
-            if (!library.ChainedSource.Links.Any(s => s.BaseElement == start))
+            if (!library.ChainedSource.Links.ContainsKey(start))
                 return start;
 
-            StringBuilder result = new StringBuilder();
-            string? word = start;
+            StringBuilder result = new StringBuilder(start + ' ');
+            string word = start;
             for (int i = 0; i < lenght; i++)
             {
-                word = ChooseRandom(library.
-                    ChainedSource.
-                    Links.
-                    Where(w => w.BaseElement == word));
-
-                if (word is null)
-                    return result.ToString();
-
-                result.Append(word);
+                word = RandomNextCell(library.ChainedSource.Links[word]);
+                result.Append(word + ' ');
             }
             return result.ToString();
         }
 
-        private string? ChooseRandom(IEnumerable<Cell<string>> cells)
+        private string RandomNextCell(Dictionary<string, int> links)
         {
-            if (cells is null)
-                return null;
+            int sum = links.Sum(x => x.Value);
 
-            int rangeStart = 1;
-            int rangeEnd = Random.Shared.Next(1, cells.Count());
+            int randomNumber = Random.Shared.Next(1, sum + 1);
+            int rangeBottom = 1;
+            int rangeTop = 1;
+               
 
-            foreach (Cell<string> cell in cells)
+            foreach(KeyValuePair<string, int> entry in links)
             {
-                if (rangeStart <= cell.Number && rangeEnd <= cell.Number)
-                    return cell.LinkedElement;
+                rangeTop += entry.Value;
+                if(rangeBottom <= randomNumber && randomNumber <= rangeTop)
+                    return entry.Key;
+                rangeBottom = rangeTop;
             }
 
-            return null;
+            return "";
         }
 
     }
