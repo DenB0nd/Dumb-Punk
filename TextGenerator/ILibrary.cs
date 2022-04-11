@@ -1,6 +1,5 @@
-﻿namespace TextGeneration
+﻿namespace TextGeneration;
+
+public interface ILibrary
 {
-    public interface ILibrary
-    {
-    }
 }

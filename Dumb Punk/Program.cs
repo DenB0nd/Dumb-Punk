@@ -1,16 +1,15 @@
-﻿
-// See https://aka.ms/new-console-template for more information
+﻿using System.Diagnostics;
 using MarkovChain;
-using System.Diagnostics;
 using TextGeneration;
+
+// See https://aka.ms/new-console-template for more information
 
 Console.WriteLine("Hello, World!");
 
-MarkovChain<int> cd = new MarkovChain<int>(new int[] {});
+MarkovChain<int> cd = new MarkovChain<int>(new int[] { });
 Stopwatch stopwatch = Stopwatch.StartNew();
 
-
-string str = "";
+string str = string.Empty;
 List<string> list = new List<string>();
 List<string> paths = Directory.EnumerateFiles(@"C:\C# и Unity\Dumb Punk\Dumb Punk\bin\Debug\net6.0", "*.txt").ToList();
 Parallel.ForEach(paths, current =>
@@ -20,7 +19,7 @@ Parallel.ForEach(paths, current =>
     list.Add(str);
 });
 
-str = "";
+str = string.Empty;
 
 foreach (string item in list)
 {
@@ -52,5 +51,3 @@ Console.WriteLine(text.Generate("Я", 50));
 
 stopwatch.Stop();
 Console.WriteLine(stopwatch.ElapsedMilliseconds);
-
-

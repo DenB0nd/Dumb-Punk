@@ -1,21 +1,22 @@
-﻿namespace TextGeneration
+﻿namespace TextGeneration;
+
+public class TextGenerator
 {
-    public class TextGenerator
+    public IGenerationAlgorithm? GenerationAlgorithm { get; set; }
+    public ILibrary? Library { get; set; }
+
+    public static TextGeneratorBuilder CreateBuilder()
     {
-        public IGenerationAlgorithm? GenerationAlgorithm { get; set; }
-        public ILibrary? Library { get; set; }
+        return new TextGeneratorBuilder();
+    }
 
-        public static TextGeneratorBuilder CreateBuilder()
+    public string? Generate(string start = "", int count = 1)
+    {
+        if (this.GenerationAlgorithm is null || this.Library is null)
         {
-            return new TextGeneratorBuilder();
+            return null;
         }
 
-        public string? Generate(string start = "", int count = 1)
-        {
-            if(GenerationAlgorithm is null || Library is null)
-                return null;
-
-            return GenerationAlgorithm.Generate(Library, start, count);
-        }
+        return this.GenerationAlgorithm.Generate(this.Library, start, count);
     }
 }

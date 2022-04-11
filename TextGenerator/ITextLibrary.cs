@@ -1,8 +1,6 @@
-﻿namespace TextGeneration
+﻿namespace TextGeneration;
+
+public interface ITextLibrary : ILibrary
 {
-    public interface ITextLibrary : ILibrary
-    {
-        public string Source { get; set; }
-        
-    }
+    public string Source { get; set; }
 }
