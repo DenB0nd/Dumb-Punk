@@ -1,6 +1,6 @@
-namespace Tests;
-
 using Xunit;
+
+namespace Tests;
 
 // TODO: ме онкемхяэ х мюохьх реярш!
 public class UnitTest1

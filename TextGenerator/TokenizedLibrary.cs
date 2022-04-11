@@ -1,6 +1,6 @@
-﻿namespace TextGeneration;
+﻿using MarkovChain;
 
-using MarkovChain;
+namespace TextGeneration;
 
 public class TokenizedLibrary : IChainedLibrary
 {

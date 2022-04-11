@@ -1,6 +1,6 @@
-﻿namespace TextGeneration;
+﻿using System.Text;
 
-using System.Text;
+namespace TextGeneration;
 
 public class MarkovAlgorithm : IGenerationAlgorithm
 {
