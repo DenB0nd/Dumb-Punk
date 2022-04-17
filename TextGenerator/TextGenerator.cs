@@ -12,11 +12,11 @@ public class TextGenerator
 
     public string? Generate(string start = "", int count = 1)
     {
-        if (this.GenerationAlgorithm is null || this.Library is null)
+        if (GenerationAlgorithm is null || Library is null)
         {
             return null;
         }
 
-        return this.GenerationAlgorithm.Generate(this.Library, start, count);
+        return GenerationAlgorithm.Generate(Library, start, count);
     }
 }

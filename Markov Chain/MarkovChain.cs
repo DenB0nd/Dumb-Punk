@@ -10,7 +10,7 @@ public class MarkovChain<T>
 
     public MarkovChain(IEnumerable<T> enumerable)
     {
-        this.AppendToLinks(enumerable);
+        AppendToLinks(enumerable);
     }
 
     public void AppendToLinks(IEnumerable<T> enumerable)
@@ -24,26 +24,26 @@ public class MarkovChain<T>
 
         for (int i = 0; i < array.Length - 1; i++)
         {
-            this.UpdateLinks(array[i], array[i + 1]);
+            UpdateLinks(array[i], array[i + 1]);
         }
     }
 
     private void UpdateLinks(T previous, T current)
     {
-        if (this.Links.ContainsKey(previous))
+        if (Links.ContainsKey(previous))
         {
-            if (this.Links[previous].ContainsKey(current))
+            if (Links[previous].ContainsKey(current))
             {
-                this.Links[previous][current]++;
+                Links[previous][current]++;
             }
             else
             {
-                this.Links[previous].Add(current, 1);
+                Links[previous].Add(current, 1);
             }
         }
         else
         {
-            this.Links.Add(previous, new Dictionary<T, int> { { current, 1 } });
+            Links.Add(previous, new Dictionary<T, int> { { current, 1 } });
         }
     }
 }

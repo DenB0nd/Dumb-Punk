@@ -2,4 +2,5 @@
 
 public interface ILibrary
 {
+    public HashSet<string> Dictionary { get; }
 }

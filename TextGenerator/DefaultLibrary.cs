@@ -8,12 +8,24 @@ public class DefaultLibrary : IChainedLibrary, ITextLibrary
 
     public MarkovChain<string> ChainedSource { get; set; }
 
-    public DefaultLibrary(IEnumerable<string> chain) => this.ChainedSource = new MarkovChain<string>(chain);
+    public HashSet<string> Dictionary { get; private set; }
+
+    public DefaultLibrary(IEnumerable<string> chain)
+    {
+        ChainedSource = new MarkovChain<string>(chain);
+        Dictionary = new HashSet<string>(chain);
+    }
 
     public DefaultLibrary(string source)
     {
-        this.Source = source;
-        string str = new string(source.Where(c => !char.IsPunctuation(c) && !c.Equals(',')).ToArray());
-        this.ChainedSource = new MarkovChain<string>(str.Split(' ').Select(s => s.Trim()));
+        Source = source;
+        IEnumerable<string> chain = new string
+            (
+            source.Where(c => !char.IsPunctuation(c) && !c.Equals(','))
+            .ToArray()
+            ).Split(' ')
+            .Select(s => s.Trim());
+        Dictionary = new HashSet<string>(chain);
+        ChainedSource = new MarkovChain<string>(chain);
     }
 }

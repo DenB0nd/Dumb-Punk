@@ -6,20 +6,20 @@ public class TextGeneratorBuilder
 
     public TextGeneratorBuilder()
     {
-        this.generator = new ();
+        generator = new ();
     }
 
     public TextGeneratorBuilder SetLibrary(ILibrary library)
     {
-        this.generator.Library = library;
+        generator.Library = library;
         return this;
     }
 
     public TextGeneratorBuilder UsingAlgorithm(IGenerationAlgorithm algorithm)
     {
-        this.generator.GenerationAlgorithm = algorithm;
+        generator.GenerationAlgorithm = algorithm;
         return this;
     }
 
-    public TextGenerator Build() => this.generator;
+    public TextGenerator Build() => generator;
 }

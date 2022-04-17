@@ -11,7 +11,7 @@ public class MarkovAlgorithm : IGenerationAlgorithm
         {
             return null;          
         }
-        return this.Generate((IChainedLibrary)library, start, count);
+        return Generate((IChainedLibrary)library, start, count);
     }
 
     private string Generate(IChainedLibrary library, string start = "", int lenght = 10)
@@ -26,7 +26,7 @@ public class MarkovAlgorithm : IGenerationAlgorithm
         string word = start;
         for (int i = 0; i < lenght; i++)
         {
-            word = this.RandomNextCell(library.ChainedSource.Links[word]);
+            word = RandomNextCell(library.ChainedSource.Links[word]);
             result.Append(word + ' ');
         }
 
