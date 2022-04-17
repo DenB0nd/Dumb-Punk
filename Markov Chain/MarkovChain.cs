@@ -24,6 +24,10 @@ public class MarkovChain<T>
 
         for (int i = 0; i < array.Length - 1; i++)
         {
+            if(array[i] is null)
+            {
+                continue;
+            }
             UpdateLinks(array[i], array[i + 1]);
         }
     }
