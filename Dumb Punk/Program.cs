@@ -28,7 +28,7 @@ Console.WriteLine(stopwatch.ElapsedMilliseconds);
 stopwatch = Stopwatch.StartNew();
 TextGenerator text = TextGenerator.CreateBuilder()
                                   .SetLibrary(new TokenizedLibrary(str))
-                                  .UsingAlgorithm(new MarkovAlgorithm())
+                                  .UsingAlgorithm(new DefaultMarkovAlgorithm())
                                   .Build();
 
 Console.WriteLine(text.Generate("Я", 50));
@@ -38,10 +38,9 @@ Console.WriteLine(stopwatch.ElapsedMilliseconds);
 stopwatch = Stopwatch.StartNew();
 text = TextGenerator.CreateBuilder()
                                   .SetLibrary(new DefaultLibrary(str))
-                                  .UsingAlgorithm(new MarkovAlgorithm())
+                                  .UsingAlgorithm(new DefaultMarkovAlgorithm())
                                   .Build();
 
 Console.WriteLine(text.Generate("Я", 50));
-
 stopwatch.Stop();
 Console.WriteLine(stopwatch.ElapsedMilliseconds);

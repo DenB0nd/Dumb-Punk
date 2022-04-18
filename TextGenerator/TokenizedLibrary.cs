@@ -1,24 +1,25 @@
 ﻿using MarkovChain;
 using System.Diagnostics;
 using System.Text;
-using System.Text.RegularExpressions;
-
 namespace TextGeneration;
 
 public class TokenizedLibrary : IChainedLibrary
 {
     public MarkovChain<string> ChainedSource { get; set; }
 
-    public HashSet<string> Dictionary => throw new NotImplementedException();
+    public HashSet<string> Dictionary { get; }
 
     public TokenizedLibrary(string source)
     {
-        ChainedSource = new MarkovChain<string>(Tokenize(source));
+        var tokens = Tokenize(source);
+        Dictionary = new HashSet<string>(tokens);
+        ChainedSource = new MarkovChain<string>(tokens);
     }
 
     public TokenizedLibrary(IEnumerable<string> tokens)
     {
         ChainedSource = new MarkovChain<string>(tokens);
+        Dictionary = new HashSet<string>(tokens);
     }
 
 
@@ -31,7 +32,8 @@ public class TokenizedLibrary : IChainedLibrary
         IEnumerable<string> tokens = AddWhiteSpaces(source)
             .Split(' ')
             .Select(s => s.Trim())
-            .Where(s => !string.IsNullOrEmpty(s));
+            .Where(s => !string.IsNullOrEmpty(s))
+            .Select(s => s.ToLowerInvariant());
 
         return tokens;
     }

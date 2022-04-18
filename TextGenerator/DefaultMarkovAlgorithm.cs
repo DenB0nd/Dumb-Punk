@@ -2,7 +2,7 @@
 
 namespace TextGeneration;
 
-public class MarkovAlgorithm : IGenerationAlgorithm
+public class DefaultMarkovAlgorithm : IGenerationAlgorithm
 {
     public string? Generate(ILibrary library, string start = "", int count = 1)
     {
@@ -17,6 +17,8 @@ public class MarkovAlgorithm : IGenerationAlgorithm
     private string Generate(IChainedLibrary library, string start = "", int lenght = 10)
     {
         ArgumentNullException.ThrowIfNull(start);
+
+        start = start.ToLowerInvariant();
         if (!library.ChainedSource.Links.ContainsKey(start))
         {
             return start;
