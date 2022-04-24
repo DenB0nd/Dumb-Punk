@@ -1,4 +1,6 @@
-﻿namespace MarkovChain;
+﻿using System.Collections.ObjectModel;
+
+namespace MarkovChain;
 
 public class MarkovChain<T>
     where T : notnull
@@ -6,20 +8,21 @@ public class MarkovChain<T>
     // Самый быстрый найденный мной способ оперировать цепью Маркова.
     // При изначальном массиве в ~200.000 значений формирует цепь за ~180 мс.
     // TODO: отрефакторить для большей наглядности, инкапсулировать данные и попробовать оптимизировать сильнее
-    public Dictionary<T, Dictionary<T, int>> Links { get; private set; } = new ();
+    public ReadOnlyDictionary<T, Dictionary<T, int>> Links { get; init; } = new (new Dictionary<T, Dictionary<T, int>>());
 
     public MarkovChain(IEnumerable<T> enumerable)
     {
-        AppendToLinks(enumerable);
+        Links = new (CreateLinks(enumerable));
     }
 
-    public void AppendToLinks(IEnumerable<T> enumerable)
+    public Dictionary<T, Dictionary<T, int>> CreateLinks(IEnumerable<T> enumerable)
     {
+        var links = new Dictionary<T, Dictionary<T, int>>() { };
         if (!enumerable.Any())
         {
-            return;
+            return links;
         }
-
+        
         var array = enumerable.ToArray();
 
         for (int i = 0; i < array.Length - 1; i++)
@@ -28,26 +31,27 @@ public class MarkovChain<T>
             {
                 continue;
             }
-            UpdateLinks(array[i], array[i + 1]);
+            UpdateLinks(array[i], array[i + 1], links);
         }
+        return links;
     }
 
-    private void UpdateLinks(T previous, T current)
+    private void UpdateLinks(T previous, T current, Dictionary<T, Dictionary<T, int>> links)
     {
-        if (Links.ContainsKey(previous))
+        if (links.ContainsKey(previous))
         {
-            if (Links[previous].ContainsKey(current))
+            if (links[previous].ContainsKey(current))
             {
-                Links[previous][current]++;
+                links[previous][current]++;
             }
             else
             {
-                Links[previous].Add(current, 1);
+                links[previous].Add(current, 1);
             }
         }
         else
         {
-            Links.Add(previous, new Dictionary<T, int> { { current, 1 } });
+            links.Add(previous, new Dictionary<T, int> { { current, 1 } });
         }
     }
 }

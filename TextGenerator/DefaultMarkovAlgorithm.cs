@@ -4,24 +4,12 @@ namespace TextGeneration;
 
 public class DefaultMarkovAlgorithm : IGenerationAlgorithm
 {
-    private Random _random = new Random();
-
     public string? Generate(ILibrary library, string start = "", int count = 10)
     {
         if (library is not IChainedLibrary)
         {
             return null;
         }
-        return Generate((IChainedLibrary)library, start, count);
-    }
-
-    public string? GenerateRandom(ILibrary library, int count = 1)
-    {
-        if (library is not IChainedLibrary)
-        {
-            return null;
-        }
-        string start = library.Dictionary.ElementAt(_random.Next(0, library.Dictionary.Count));
         return Generate((IChainedLibrary)library, start, count);
     }
 
