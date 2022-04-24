@@ -28,7 +28,7 @@ public class TokenizedLibrary : IChainedLibrary
 
     public IEnumerable<string> Tokenize(string source)
     {
-        source = source.Replace("\n", "").Replace("\r", "");
+        source = source.Replace("\n", " ").Replace("\r", " ");
         IEnumerable<string> tokens = AddWhiteSpaces(source)
             .Split(' ')
             .Select(s => s.Trim())

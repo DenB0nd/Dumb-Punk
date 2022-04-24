@@ -10,11 +10,16 @@ public class TextGenerator
         return new TextGeneratorBuilder();
     }
 
-    public string? Generate(string start = "", int count = 1)
+    public string? Generate(string? start = null, int count = 1)
     {
         if (GenerationAlgorithm is null || Library is null)
         {
             return null;
+        }
+        
+        if(start is null)
+        {
+            start = Library.RandomStart;
         }
 
         return GenerationAlgorithm.Generate(Library, start, count);

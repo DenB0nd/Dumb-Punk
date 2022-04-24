@@ -9,7 +9,7 @@ public class TextGeneratorBuilder
         generator = new ();
     }
 
-    public TextGeneratorBuilder SetLibrary(ILibrary library)
+    public TextGeneratorBuilder UsingLibrary(ILibrary library)
     {
         generator.Library = library;
         return this;

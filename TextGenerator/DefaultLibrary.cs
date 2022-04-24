@@ -4,9 +4,9 @@ namespace TextGeneration;
 
 public class DefaultLibrary : IChainedLibrary, ITextLibrary
 {
-    public string Source { get; set; } = string.Empty;
+    public string Source { get; init; } = string.Empty;
 
-    public MarkovChain<string> ChainedSource { get; set; }
+    public MarkovChain<string> ChainedSource { get; init; }
 
     public HashSet<string> Dictionary { get; private set; }
 
