@@ -2,7 +2,7 @@
 
 public interface ILibrary
 {
-    public HashSet<string> Dictionary { get; }
+    public HashSet<string> Dictionary { get; init; }
     public string RandomStart
     {
         get

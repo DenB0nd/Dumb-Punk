@@ -5,9 +5,9 @@ namespace TextGeneration;
 
 public class TokenizedLibrary : IChainedLibrary
 {
-    public MarkovChain<string> ChainedSource { get; set; }
+    public MarkovChain<string> ChainedSource { get; init; }
 
-    public HashSet<string> Dictionary { get; }
+    public HashSet<string> Dictionary { get; init; }
 
     public TokenizedLibrary(string source)
     {

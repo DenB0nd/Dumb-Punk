@@ -8,7 +8,7 @@ public class DefaultLibrary : IChainedLibrary, ITextLibrary
 
     public MarkovChain<string> ChainedSource { get; init; }
 
-    public HashSet<string> Dictionary { get; private set; }
+    public HashSet<string> Dictionary { get; init; }
 
     public DefaultLibrary(IEnumerable<string> chain)
     {

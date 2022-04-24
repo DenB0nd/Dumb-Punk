@@ -2,5 +2,5 @@
 
 public interface ITextLibrary : ILibrary
 {
-    public string Source { get; }
+    public string Source { get; init; }
 }

@@ -4,5 +4,5 @@ namespace TextGeneration;
 
 public interface IChainedLibrary : ILibrary
 {
-    public MarkovChain<string> ChainedSource { get; }
+    public MarkovChain<string> ChainedSource { get; init; }
 }
