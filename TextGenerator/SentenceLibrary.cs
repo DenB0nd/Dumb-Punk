@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace TextGeneration
 {
-    public interface ITextLibrary : ILibrary
+    internal class SentenceLibrary
     {
-        public string Source { get; init; }
     }
 }

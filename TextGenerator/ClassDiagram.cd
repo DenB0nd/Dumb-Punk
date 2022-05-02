@@ -6,16 +6,16 @@
   <Class Name="TextGeneration.DefaultLibrary">
     <Position X="4.25" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAAAAAACAAAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>DefaultLibrary.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TextGeneration.MarkovAlgorithm" Collapsed="true">
+  <Class Name="TextGeneration.DefaultMarkovGenerator" Collapsed="true">
     <Position X="12" Y="5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
-      <FileName>MarkovAlgorithm.cs</FileName>
+      <FileName>DefaultMarkovGenerator.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.15" />
   </Class>
@@ -33,7 +33,7 @@
   <Class Name="TextGeneration.TextGeneratorBuilder" Collapsed="true">
     <Position X="8.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAEAAAAAAAAAAAgAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAABAAAEAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAg=</HashCode>
       <FileName>TextGeneratorBuilder.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -43,7 +43,7 @@
   <Class Name="TextGeneration.TokenizedLibrary">
     <Position X="6.25" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAABQAAAAAAAAAAAAAICAAAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>TokenizedLibrary.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -55,25 +55,25 @@
       <FileName>IChainedLibrary.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="TextGeneration.IGenerationAlgorithm" Collapsed="true">
+  <Interface Name="TextGeneration.IGenerator" Collapsed="true">
     <Position X="12" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
-      <FileName>IGenerationAlgorithm.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="TextGeneration.ITextLibrary" Collapsed="true">
-    <Position X="3.75" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ITextLibrary.cs</FileName>
+      <FileName>IGenerator.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="TextGeneration.ILibrary" Collapsed="true">
     <Position X="2.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>ILibrary.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TextGeneration.ITextLibrary" Collapsed="true">
+    <Position X="3.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ITextLibrary.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

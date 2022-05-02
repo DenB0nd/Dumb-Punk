@@ -7,29 +7,24 @@ Console.WriteLine("Hello, World!");
 Stopwatch stopwatch = Stopwatch.StartNew();
 
 
-using var reader = new StreamReader("punk.txt");
+using var reader = new StreamReader("hokku.txt");
 string str = reader.ReadToEnd();
-str = str.Replace("*", "у");
+string[] array = str.Split('\n');
+
+
 
 
 stopwatch.Stop();
 Console.WriteLine(stopwatch.ElapsedMilliseconds);
 stopwatch = Stopwatch.StartNew();
-TextGenerator text = TextGenerator.CreateBuilder()
-                                  .UsingLibrary(new TokenizedLibrary(str))
-                                  .UsingAlgorithm(new DefaultMarkovAlgorithm())
-                                  .Build();
 
-Console.WriteLine(text.Generate(count: 20));
+TextGenerator textGenerator = new TextGeneratorBuilder()
+    .UsingLibrary(new DefaultLibrary(array))
+    .UsingAlgorithm(new SentenceGenerator())
+    .Build();
+                                    
 
-stopwatch.Stop();
-Console.WriteLine(stopwatch.ElapsedMilliseconds);
-stopwatch = Stopwatch.StartNew();
-text = TextGenerator.CreateBuilder()
-                                  .UsingLibrary(new DefaultLibrary(str))
-                                  .UsingAlgorithm(new DefaultMarkovAlgorithm())
-                                  .Build();
 
-Console.WriteLine(text.Generate(count: 20));
+Console.WriteLine(textGenerator.Generate(count: 3));
 stopwatch.Stop();
 Console.WriteLine(stopwatch.ElapsedMilliseconds);

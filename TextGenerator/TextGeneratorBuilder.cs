@@ -15,7 +15,7 @@ public class TextGeneratorBuilder
         return this;
     }
 
-    public TextGeneratorBuilder UsingAlgorithm(IGenerationAlgorithm algorithm)
+    public TextGeneratorBuilder UsingAlgorithm(IGenerator algorithm)
     {
         generator.GenerationAlgorithm = algorithm;
         return this;

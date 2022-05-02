@@ -2,7 +2,7 @@
 
 public class TextGenerator
 {
-    public IGenerationAlgorithm? GenerationAlgorithm { get; set; }
+    public IGenerator? GenerationAlgorithm { get; set; }
     public ILibrary? Library { get; set; }
 
     public static TextGeneratorBuilder CreateBuilder()
@@ -10,18 +10,20 @@ public class TextGenerator
         return new TextGeneratorBuilder();
     }
 
-    public string? Generate(string? start = null, int count = 1)
+    public string Generate(string? start = null, int count = 1)
     {
         if (GenerationAlgorithm is null || Library is null)
         {
-            return null;
+            return string.Empty;
         }
-        
-        if(start is null)
+
+        if (start is null)
         {
-            start = Library.RandomStart;
+            start = Library.Dictionary.ElementAt(Random.Shared.Next(Library.Dictionary.Count()));
         }
 
         return GenerationAlgorithm.Generate(Library, start, count);
     }
 }
+
+  

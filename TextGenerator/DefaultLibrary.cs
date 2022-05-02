@@ -19,11 +19,7 @@ public class DefaultLibrary : IChainedLibrary, ITextLibrary
     public DefaultLibrary(string source)
     {
         Source = source;
-        IEnumerable<string> chain = new string
-            (
-            source.Where(c => !char.IsPunctuation(c) && !c.Equals(',')).ToArray()
-            )
-            .Split(' ')
+        IEnumerable<string> chain = source.Split(' ')
             .Select(s => s.Trim());
         Dictionary = new HashSet<string>(chain);
         ChainedSource = new MarkovChain<string>(chain);
