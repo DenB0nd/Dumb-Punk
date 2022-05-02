@@ -54,11 +54,24 @@ public class LibraryTests
     [InlineData("ping, pong", 2)]
     [InlineData("pog. pog. pog.", 1)]
     [InlineData("The Dark Tower: The Gunslinger", 4)]
-    [InlineData("The: Dark Tower : The Gunslinger", 5)]
+    [InlineData("The: Dark Tower : The Gunslinger", 6)]
 
     public void Test_DefaultLibrary_InputData(string text, int expected)
     {
         DefaultLibrary library = new DefaultLibrary(text);
         Assert.Equal(expected, library.Dictionary.Count());
+    }
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(1, "a")]
+    [InlineData(2, "a", "b")]
+    [InlineData(3, "a", "b", "c")]
+    public void Test_SentenceGenerator_Count(int count, params string[] strings)
+    {
+        DefaultLibrary defaultLibrary = new DefaultLibrary(strings);
+        SentenceGenerator sentenceGenerator = new SentenceGenerator();
+        string result = sentenceGenerator.Generate(defaultLibrary, count: count);
+        Assert.Equal(count, result.Split('\n').Length);
     }
 }
