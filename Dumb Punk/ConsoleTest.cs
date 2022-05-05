@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Npgsql;
+using System.Diagnostics;
 using TextGeneration;
 
 // See https://aka.ms/new-console-template for more information
@@ -7,12 +8,22 @@ Console.WriteLine("Hello, World!");
 Stopwatch stopwatch = Stopwatch.StartNew();
 
 
-using var reader = new StreamReader("hokku.txt");
-string str = reader.ReadToEnd();
-string[] array = str.Split('\n');
-
-
-
+string conn_param = ""; 
+List<string> array = new List<string>() { };
+NpgsqlConnection con = new NpgsqlConnection(conn_param);
+NpgsqlCommand com = new NpgsqlCommand("select * from hokkubase ORDER BY random()", con);
+con.Open();
+NpgsqlDataReader reader = com.ExecuteReader();
+for(int i = 0; i < 3; i++)
+{
+    reader.Read();
+    try
+    {
+        array.Add(reader.GetString(0).Trim());
+    }
+    catch { }
+}
+con.Close();
 
 stopwatch.Stop();
 Console.WriteLine(stopwatch.ElapsedMilliseconds);

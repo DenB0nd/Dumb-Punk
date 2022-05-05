@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 
 namespace MarkovChain;
-
+// baza
 public class MarkovChain<T>
     where T : notnull
 {
