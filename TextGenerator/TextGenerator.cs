@@ -19,7 +19,7 @@ public class TextGenerator
 
         if (start is null)
         {
-            start = Library.Dictionary.ElementAt(Random.Shared.Next(Library.Dictionary.Count()));
+            start = Library.Dictionary.ElementAt(Random.Shared.Next(Library.Dictionary.Count));
         }
 
         return GenerationAlgorithm.Generate(Library, start, count);

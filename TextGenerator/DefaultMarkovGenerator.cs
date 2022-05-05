@@ -4,7 +4,7 @@ namespace TextGeneration;
 
 public class DefaultMarkovGenerator : IGenerator
 {
-    public string Generate(ILibrary library, string start = "", int count = 10)
+    public string Generate(ILibrary library, string start = "", int count = 1)
     {
         if (library is not IChainedLibrary)
         {

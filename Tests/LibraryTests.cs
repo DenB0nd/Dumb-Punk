@@ -30,24 +30,17 @@ public class LibraryTests
     public void Test_TokenizedLibrary_Input_Data(string text, int expected)
     {
         TokenizedLibrary library = new TokenizedLibrary(text);
-        Assert.Equal(expected, library.Dictionary.Count());
+        Assert.Equal(expected, library.Dictionary.Count);
     }
 
     [Fact]
-    public void Test_DefaultLibrary_Empty()
+    public void Test_DefaultLibrary_Empty_And_WhiteSpace()
     {
         DefaultLibrary library = new DefaultLibrary(" ");
         Assert.Single(library.Dictionary);
         Assert.Equal(string.Empty, library.Dictionary.First());
     }
 
-    [Fact]
-    public void Test_DefaultLibrary_WhiteSpace()
-    {
-        DefaultLibrary library = new DefaultLibrary(" ");
-        Assert.Single(library.Dictionary);
-        Assert.Equal(string.Empty, library.Dictionary.First());
-    }
 
     [Theory]
     [InlineData("ping pong", 2)]
@@ -59,7 +52,7 @@ public class LibraryTests
     public void Test_DefaultLibrary_InputData(string text, int expected)
     {
         DefaultLibrary library = new DefaultLibrary(text);
-        Assert.Equal(expected, library.Dictionary.Count());
+        Assert.Equal(expected, library.Dictionary.Count);
     }
 
     [Theory]

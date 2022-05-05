@@ -6,7 +6,7 @@ public static class AppConfig
 {
     public static string Token => Environment.GetEnvironmentVariable("TOKEN") ?? string.Empty;
 
-    public static string ConnectionString;
+    public static string ConnectionString { get; }
 
     static AppConfig()
     {

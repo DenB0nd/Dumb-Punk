@@ -8,7 +8,8 @@ public class MarkovChain<T>
     // Самый быстрый найденный мной способ оперировать цепью Маркова.
     // При изначальном массиве в ~200.000 значений формирует цепь за ~180 мс.
     // TODO: отрефакторить для большей наглядности, инкапсулировать данные и попробовать оптимизировать сильнее
-    public ReadOnlyDictionary<T, Dictionary<T, int>> Links { get; init; } = new (new Dictionary<T, Dictionary<T, int>>());
+
+    public ReadOnlyDictionary<T, Dictionary<T, int>> Links { get; init; }
 
     public MarkovChain(IEnumerable<T> enumerable)
     {

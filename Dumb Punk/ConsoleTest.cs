@@ -17,11 +17,7 @@ NpgsqlDataReader reader = com.ExecuteReader();
 for(int i = 0; i < 3; i++)
 {
     reader.Read();
-    try
-    {
-        array.Add(reader.GetString(0).Trim());
-    }
-    catch { }
+    array.Add(reader.GetString(0).Trim());
 }
 con.Close();
 
