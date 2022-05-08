@@ -3,6 +3,8 @@ using Discord.WebSocket;
 using Discord_Bot;
 using Npgsql;
 using TextGeneration;
+using Serilog;
+using Serilog.Events;
 
 namespace DumpPunkDiscord;
 
@@ -12,24 +14,41 @@ internal static class Program
 
     static async Task Main(string[] args)
     {
+        Serilog.Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .CreateLogger();
+
         DiscordSocketClient? discord = new DiscordSocketClient();
         discord.MessageReceived += CommandHandler;
-        discord.Log += Log;
+        discord.Log += LogAsync;
 
 
         string? token = AppConfig.Token;
 
         await discord.LoginAsync(TokenType.Bot, token);
         await discord.StartAsync();
+        Log.Information("STARTED");
         ReadHokkuBase();
 
         await Task.Delay(-1);
     }
 
-    static Task Log(LogMessage arg)
+    static async Task LogAsync(LogMessage message)
     {
-        Console.WriteLine(arg.Message);
-        return Task.CompletedTask;
+        var severity = message.Severity switch
+        {
+            LogSeverity.Critical => LogEventLevel.Fatal,
+            LogSeverity.Error => LogEventLevel.Error,
+            LogSeverity.Warning => LogEventLevel.Warning,
+            LogSeverity.Info => LogEventLevel.Information,
+            LogSeverity.Verbose => LogEventLevel.Verbose,
+            LogSeverity.Debug => LogEventLevel.Debug,
+            _ => LogEventLevel.Information
+        };
+        Log.Write(severity, message.Exception, "[{Source}] {Message}", message.Source, message.Message);
+        await Task.CompletedTask;
     }
 
     static Task CommandHandler(SocketMessage message)
@@ -42,6 +61,7 @@ internal static class Program
                 .Build();
 
             message.Channel.SendMessageAsync(textGenerator.Generate(count: 3));
+            Log.Information("Hokku command executed");
         }
 
         return Task.CompletedTask;
@@ -49,22 +69,15 @@ internal static class Program
 
     static void ReadHokkuBase()
     {
-        NpgsqlConnection con = new NpgsqlConnection(AppConfig.ConnectionString);
+        using NpgsqlConnection con = new NpgsqlConnection(AppConfig.ConnectionString);
         NpgsqlCommand com = new NpgsqlCommand("select * from hokkubase", con);
         con.Open();
         NpgsqlDataReader reader = com.ExecuteReader();
         while (reader.Read())
         {
-            try
-            {
-                hokkuBase.Add(reader.GetString(0).Trim());
-            }
-            catch
-            {
-                Console.WriteLine("Reading error");
-            }
+            hokkuBase.Add(reader.GetString(0).Trim());
         }
-        Console.WriteLine("Reading completed");
+        Log.Information("Hokkubase read");
         con.Close();
     }
 }
