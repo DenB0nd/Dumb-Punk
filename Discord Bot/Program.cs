@@ -14,7 +14,7 @@ internal static class Program
 
     static async Task Main(string[] args)
     {
-        Serilog.Log.Logger = new LoggerConfiguration()
+        Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Verbose()
             .Enrich.FromLogContext()
             .WriteTo.Console()
@@ -62,6 +62,7 @@ internal static class Program
 
             message.Channel.SendMessageAsync(textGenerator.Generate(count: 3));
             Log.Information("Hokku command executed");
+            Console.WriteLine("stdout checking");
         }
 
         return Task.CompletedTask;
